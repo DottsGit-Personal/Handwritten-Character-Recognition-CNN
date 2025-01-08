@@ -15,19 +15,20 @@ if torch.cuda.is_available():
 torch.manual_seed(42)
 
 # Hyperparameters
-num_epochs = 10  # Increased epochs
-batch_size = 128
+num_epochs = 30  # Increased epochs
+batch_size = 64
 num_workers = 4
 pin_memory = torch.cuda.is_available()
-learning_rate = 0.001
-weight_decay = 1e-4  # Increased weight decay
+learning_rate = 0.0003
+weight_decay = 1e-5  # Increased weight decay
 
 # Define transforms with augmentation
 transform_train = transforms.Compose([
-    transforms.RandomRotation(10),
+    transforms.RandomRotation(15),
     transforms.RandomAffine(degrees=0, translate=(0.1, 0.1)),
+    transforms.RandomPerspective(0.2),
     transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,))  # MNIST mean and std
+    transforms.Normalize((0.1307,), (0.3081,))
 ])
 
 transform_test = transforms.Compose([
