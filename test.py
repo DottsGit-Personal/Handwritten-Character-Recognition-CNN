@@ -10,6 +10,7 @@ import numpy as np
 from PIL import ImageOps
 
 from CNN_Class import CNN
+import os
 
 # Function to preprocess the image
 def preprocess_image(image_path):
@@ -33,11 +34,12 @@ def preprocess_image(image_path):
         
         image = transform(image)
         
-        # Debug visualization before prediction
+        # Visualization before prediction
         plt.figure(figsize=(4,4))
         plt.imshow(image.squeeze(), cmap='gray')
         plt.title('Preprocessed Image')
-        plt.savefig('debug/preprocessed_debug.png')
+        os.makedirs('./debug', exist_ok=True)
+        plt.savefig('./debug/debug_preprocessed.png')
         plt.close()
         
         return image.unsqueeze(0)

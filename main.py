@@ -6,6 +6,8 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import random_split
 from CNN_Class import CNN
+import os
+import gc
 
 # Set device and random seed
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -85,6 +87,7 @@ def cleanup_dataloaders(*loaders):
 
 def main():
     try:
+        os.makedirs('./models', exist_ok=True)
         print(f'Device: {device}')
         # Initialize model, optimizer, and scheduler
         model = CNN().to(device)
@@ -166,7 +169,6 @@ def main():
         cleanup_dataloaders(train_loader, val_loader, test_loader)
     finally:
         # Force garbage collection
-        import gc
         gc.collect()
     
 
